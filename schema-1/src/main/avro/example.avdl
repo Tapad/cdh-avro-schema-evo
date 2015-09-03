@@ -1,0 +1,17 @@
+@namespace("com.tapad")
+protocol ExampleInterface {
+
+  enum ExampleEnum {
+    FOO,
+    BAR
+  }
+
+  record Example {
+
+    long id;
+
+    ExampleEnum my_enum;
+
+    union { null, string } my_optional_member = null;
+  }
+}
