@@ -4,16 +4,10 @@ set -o nounset
 
 DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-. $DIR/paths.sh
+. $DIR/common.sh
 
 MAIN=com.twitter.scalding.Tool
 JOB=com.tapad.AvroParquetConverter
-
-print_results() {
-  local task=$1
-  local path=$2
-  test -e "$path" && echo "$1 succeeded" || "$1 failed - check $LOG_DIR for job output"
-}
 
 test -d $LOG_DIR || mkdir $LOG_DIR
 

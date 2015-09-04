@@ -4,7 +4,7 @@ set -o errexit
 
 DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-. $DIR/paths.sh
+. $DIR/common.sh
 
 NUM_RECORDS=10
 

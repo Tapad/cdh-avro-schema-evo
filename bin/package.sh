@@ -27,7 +27,7 @@ cp $CONV_JAR build
 
 cp bin/README build
 cp bin/Makefile build
-cp bin/paths.sh build
+cp bin/common.sh build
 cp bin/datagen.sh build
 cp bin/conv.sh build
 cp bin/evo.sh build

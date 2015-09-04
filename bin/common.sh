@@ -14,3 +14,15 @@ SCHEMA_3_JAR="$BUILD_DIR/schema-3-datagen.jar"
 SCHEMA_4_JAR="$BUILD_DIR/schema-4-datagen.jar"
 SCHEMA_5_JAR="$BUILD_DIR/schema-5-datagen.jar"
 CONV_JAR="$BUILD_DIR/conv.jar"
+
+print_results() {
+  local task=$1
+  local path=$2
+  local result=$(test -e "$path/_SUCCESS")
+  if [ $result -ne 0 ]
+  then
+    echo "$1 failed - check $LOG_DIR for job output"
+  else
+    echo "$1 succeeded"
+  fi
+}

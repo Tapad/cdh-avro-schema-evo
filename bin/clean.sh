@@ -5,6 +5,6 @@ set -o nounset
 
 DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-. $DIR/paths.sh
+. $DIR/common.sh
 
 find "$DATA_DIR" -mindepth 1 -delete
