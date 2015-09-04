@@ -7,11 +7,12 @@ package com.tapad;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Example extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Example\",\"namespace\":\"com.tapad\",\"fields\":[{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"my_enum\",\"type\":{\"type\":\"enum\",\"name\":\"ExampleEnum\",\"symbols\":[\"FOO\",\"BAR\",\"BAZ\"]}},{\"name\":\"my_optional_member\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Example\",\"namespace\":\"com.tapad\",\"fields\":[{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"my_enum\",\"type\":{\"type\":\"enum\",\"name\":\"ExampleEnum\",\"symbols\":[\"FOO\",\"BAR\",\"BAZ\"]}},{\"name\":\"my_optional_member\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"my_nested_member\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"ExampleNesting\",\"fields\":[{\"name\":\"counts\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"attributes\",\"type\":[\"null\",{\"type\":\"map\",\"values\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"avro.java.string\":\"String\"}],\"default\":null}]}],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public long id;
   @Deprecated public com.tapad.ExampleEnum my_enum;
   @Deprecated public java.lang.String my_optional_member;
+  @Deprecated public com.tapad.ExampleNesting my_nested_member;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -23,10 +24,11 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
   /**
    * All-args constructor.
    */
-  public Example(java.lang.Long id, com.tapad.ExampleEnum my_enum, java.lang.String my_optional_member) {
+  public Example(java.lang.Long id, com.tapad.ExampleEnum my_enum, java.lang.String my_optional_member, com.tapad.ExampleNesting my_nested_member) {
     this.id = id;
     this.my_enum = my_enum;
     this.my_optional_member = my_optional_member;
+    this.my_nested_member = my_nested_member;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
@@ -36,6 +38,7 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
     case 0: return id;
     case 1: return my_enum;
     case 2: return my_optional_member;
+    case 3: return my_nested_member;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -46,6 +49,7 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
     case 0: id = (java.lang.Long)value$; break;
     case 1: my_enum = (com.tapad.ExampleEnum)value$; break;
     case 2: my_optional_member = (java.lang.String)value$; break;
+    case 3: my_nested_member = (com.tapad.ExampleNesting)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -95,6 +99,21 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
     this.my_optional_member = value;
   }
 
+  /**
+   * Gets the value of the 'my_nested_member' field.
+   */
+  public com.tapad.ExampleNesting getMyNestedMember() {
+    return my_nested_member;
+  }
+
+  /**
+   * Sets the value of the 'my_nested_member' field.
+   * @param value the value to set.
+   */
+  public void setMyNestedMember(com.tapad.ExampleNesting value) {
+    this.my_nested_member = value;
+  }
+
   /** Creates a new Example RecordBuilder */
   public static com.tapad.Example.Builder newBuilder() {
     return new com.tapad.Example.Builder();
@@ -119,6 +138,7 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
     private long id;
     private com.tapad.ExampleEnum my_enum;
     private java.lang.String my_optional_member;
+    private com.tapad.ExampleNesting my_nested_member;
 
     /** Creates a new Builder */
     private Builder() {
@@ -140,6 +160,10 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
         this.my_optional_member = data().deepCopy(fields()[2].schema(), other.my_optional_member);
         fieldSetFlags()[2] = true;
       }
+      if (isValidValue(fields()[3], other.my_nested_member)) {
+        this.my_nested_member = data().deepCopy(fields()[3].schema(), other.my_nested_member);
+        fieldSetFlags()[3] = true;
+      }
     }
     
     /** Creates a Builder by copying an existing Example instance */
@@ -156,6 +180,10 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
       if (isValidValue(fields()[2], other.my_optional_member)) {
         this.my_optional_member = data().deepCopy(fields()[2].schema(), other.my_optional_member);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.my_nested_member)) {
+        this.my_nested_member = data().deepCopy(fields()[3].schema(), other.my_nested_member);
+        fieldSetFlags()[3] = true;
       }
     }
 
@@ -233,6 +261,31 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
       return this;
     }
 
+    /** Gets the value of the 'my_nested_member' field */
+    public com.tapad.ExampleNesting getMyNestedMember() {
+      return my_nested_member;
+    }
+    
+    /** Sets the value of the 'my_nested_member' field */
+    public com.tapad.Example.Builder setMyNestedMember(com.tapad.ExampleNesting value) {
+      validate(fields()[3], value);
+      this.my_nested_member = value;
+      fieldSetFlags()[3] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'my_nested_member' field has been set */
+    public boolean hasMyNestedMember() {
+      return fieldSetFlags()[3];
+    }
+    
+    /** Clears the value of the 'my_nested_member' field */
+    public com.tapad.Example.Builder clearMyNestedMember() {
+      my_nested_member = null;
+      fieldSetFlags()[3] = false;
+      return this;
+    }
+
     @Override
     public Example build() {
       try {
@@ -240,6 +293,7 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.Long) defaultValue(fields()[0]);
         record.my_enum = fieldSetFlags()[1] ? this.my_enum : (com.tapad.ExampleEnum) defaultValue(fields()[1]);
         record.my_optional_member = fieldSetFlags()[2] ? this.my_optional_member : (java.lang.String) defaultValue(fields()[2]);
+        record.my_nested_member = fieldSetFlags()[3] ? this.my_nested_member : (com.tapad.ExampleNesting) defaultValue(fields()[3]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

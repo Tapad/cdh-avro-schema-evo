@@ -7,10 +7,11 @@ package com.tapad;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Example extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Example\",\"namespace\":\"com.tapad\",\"fields\":[{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"my_enum\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExampleEnum\",\"symbols\":[\"FOO\",\"BAR\",\"BAZ\"]}],\"default\":null},{\"name\":\"guid\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Example\",\"namespace\":\"com.tapad\",\"fields\":[{\"name\":\"id\",\"type\":\"long\"},{\"name\":\"my_enum\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"ExampleEnum\",\"symbols\":[\"FOO\",\"BAR\",\"BAZ\"]}],\"default\":null},{\"name\":\"my_nested_member\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"ExampleNesting\",\"fields\":[{\"name\":\"counts\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"attributes\",\"type\":[\"null\",{\"type\":\"map\",\"values\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"avro.java.string\":\"String\"}],\"default\":null}]}],\"default\":null},{\"name\":\"guid\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public long id;
   @Deprecated public com.tapad.ExampleEnum my_enum;
+  @Deprecated public com.tapad.ExampleNesting my_nested_member;
   @Deprecated public java.lang.String guid;
 
   /**
@@ -23,9 +24,10 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
   /**
    * All-args constructor.
    */
-  public Example(java.lang.Long id, com.tapad.ExampleEnum my_enum, java.lang.String guid) {
+  public Example(java.lang.Long id, com.tapad.ExampleEnum my_enum, com.tapad.ExampleNesting my_nested_member, java.lang.String guid) {
     this.id = id;
     this.my_enum = my_enum;
+    this.my_nested_member = my_nested_member;
     this.guid = guid;
   }
 
@@ -35,7 +37,8 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
     switch (field$) {
     case 0: return id;
     case 1: return my_enum;
-    case 2: return guid;
+    case 2: return my_nested_member;
+    case 3: return guid;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -45,7 +48,8 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
     switch (field$) {
     case 0: id = (java.lang.Long)value$; break;
     case 1: my_enum = (com.tapad.ExampleEnum)value$; break;
-    case 2: guid = (java.lang.String)value$; break;
+    case 2: my_nested_member = (com.tapad.ExampleNesting)value$; break;
+    case 3: guid = (java.lang.String)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -78,6 +82,21 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
    */
   public void setMyEnum(com.tapad.ExampleEnum value) {
     this.my_enum = value;
+  }
+
+  /**
+   * Gets the value of the 'my_nested_member' field.
+   */
+  public com.tapad.ExampleNesting getMyNestedMember() {
+    return my_nested_member;
+  }
+
+  /**
+   * Sets the value of the 'my_nested_member' field.
+   * @param value the value to set.
+   */
+  public void setMyNestedMember(com.tapad.ExampleNesting value) {
+    this.my_nested_member = value;
   }
 
   /**
@@ -118,6 +137,7 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
 
     private long id;
     private com.tapad.ExampleEnum my_enum;
+    private com.tapad.ExampleNesting my_nested_member;
     private java.lang.String guid;
 
     /** Creates a new Builder */
@@ -136,9 +156,13 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
         this.my_enum = data().deepCopy(fields()[1].schema(), other.my_enum);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.guid)) {
-        this.guid = data().deepCopy(fields()[2].schema(), other.guid);
+      if (isValidValue(fields()[2], other.my_nested_member)) {
+        this.my_nested_member = data().deepCopy(fields()[2].schema(), other.my_nested_member);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.guid)) {
+        this.guid = data().deepCopy(fields()[3].schema(), other.guid);
+        fieldSetFlags()[3] = true;
       }
     }
     
@@ -153,9 +177,13 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
         this.my_enum = data().deepCopy(fields()[1].schema(), other.my_enum);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.guid)) {
-        this.guid = data().deepCopy(fields()[2].schema(), other.guid);
+      if (isValidValue(fields()[2], other.my_nested_member)) {
+        this.my_nested_member = data().deepCopy(fields()[2].schema(), other.my_nested_member);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.guid)) {
+        this.guid = data().deepCopy(fields()[3].schema(), other.guid);
+        fieldSetFlags()[3] = true;
       }
     }
 
@@ -208,6 +236,31 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
       return this;
     }
 
+    /** Gets the value of the 'my_nested_member' field */
+    public com.tapad.ExampleNesting getMyNestedMember() {
+      return my_nested_member;
+    }
+    
+    /** Sets the value of the 'my_nested_member' field */
+    public com.tapad.Example.Builder setMyNestedMember(com.tapad.ExampleNesting value) {
+      validate(fields()[2], value);
+      this.my_nested_member = value;
+      fieldSetFlags()[2] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'my_nested_member' field has been set */
+    public boolean hasMyNestedMember() {
+      return fieldSetFlags()[2];
+    }
+    
+    /** Clears the value of the 'my_nested_member' field */
+    public com.tapad.Example.Builder clearMyNestedMember() {
+      my_nested_member = null;
+      fieldSetFlags()[2] = false;
+      return this;
+    }
+
     /** Gets the value of the 'guid' field */
     public java.lang.String getGuid() {
       return guid;
@@ -215,21 +268,21 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
     
     /** Sets the value of the 'guid' field */
     public com.tapad.Example.Builder setGuid(java.lang.String value) {
-      validate(fields()[2], value);
+      validate(fields()[3], value);
       this.guid = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[3] = true;
       return this; 
     }
     
     /** Checks whether the 'guid' field has been set */
     public boolean hasGuid() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[3];
     }
     
     /** Clears the value of the 'guid' field */
     public com.tapad.Example.Builder clearGuid() {
       guid = null;
-      fieldSetFlags()[2] = false;
+      fieldSetFlags()[3] = false;
       return this;
     }
 
@@ -239,7 +292,8 @@ public class Example extends org.apache.avro.specific.SpecificRecordBase impleme
         Example record = new Example();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.Long) defaultValue(fields()[0]);
         record.my_enum = fieldSetFlags()[1] ? this.my_enum : (com.tapad.ExampleEnum) defaultValue(fields()[1]);
-        record.guid = fieldSetFlags()[2] ? this.guid : (java.lang.String) defaultValue(fields()[2]);
+        record.my_nested_member = fieldSetFlags()[2] ? this.my_nested_member : (com.tapad.ExampleNesting) defaultValue(fields()[2]);
+        record.guid = fieldSetFlags()[3] ? this.guid : (java.lang.String) defaultValue(fields()[3]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

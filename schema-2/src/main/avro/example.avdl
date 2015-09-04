@@ -7,6 +7,13 @@ protocol ExampleInterface {
     BAZ
   }
 
+  record ExampleNesting {
+
+    array<int> counts;
+
+    union { null, map<string> } attributes= null;
+  }
+
   record Example {
 
     long id;
@@ -14,5 +21,7 @@ protocol ExampleInterface {
     ExampleEnum my_enum;
 
     union { null, string } my_optional_member = null;
+
+    union { null, ExampleNesting } my_nested_member = null;
   }
 }
