@@ -18,11 +18,5 @@ CONV_JAR="$BUILD_DIR/conv.jar"
 print_results() {
   local task=$1
   local path=$2
-  local result=$(test -e "$path/_SUCCESS")
-  if [ $result -ne 0 ]
-  then
-    echo "$1 failed - check $LOG_DIR for job output"
-  else
-    echo "$1 succeeded"
-  fi
+  test -e "$path/_SUCCESS" && echo "$1 succeeded" || "$1 failed - check $LOG_DIR for job output"
 }

@@ -5,10 +5,10 @@ datagen: package clean
 	@./datagen.sh
 
 conv: datagen
-	@./conv.sh
+	-@./conv.sh
 
 evo: conv
-	@./evo.sh
+	-@./evo.sh
 
 clean:
 	@./clean.sh

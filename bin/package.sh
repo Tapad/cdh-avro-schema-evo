@@ -7,7 +7,7 @@ DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 pushd "$DIR/.."
 
-sbt ';clean ;compile ;assembly'
+sbt ';clean ;compile ;assembly ;conv/jarjar'
 
 test -d build || mkdir build
 
@@ -27,11 +27,11 @@ cp $CONV_JAR build
 
 cp bin/README build
 cp bin/Makefile build
-cp bin/common.sh build
 cp bin/datagen.sh build
 cp bin/conv.sh build
 cp bin/evo.sh build
 cp bin/clean.sh build
+sed 's/build/tapad-datagen/' bin/common.sh > build/common.sh
 
 ln -s build tapad-datagen
 COPYFILE_DISABLE=1 tar -chzf tapad-datagen.tar.gz tapad-datagen

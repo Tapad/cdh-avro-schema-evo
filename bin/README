@@ -91,10 +91,24 @@ For example, if schema 1 is succeeded by schema 2, the evolution job will select
 
 Theoretically, schema 5 should be backwards compatible with schemas 1 through 4, and a single job should be able to migrate data files generated with schemas 1 through 4 to schema 5.
 
-Our production workflows do not consider schema evolution as an *ultimate goal*. It is simply a necessary part of our processes. You can imagine running a MapReduce job over months worth of data where the schema used to define that dataset has changed multiple times during that time period.
+---
+
+Our production workflows do not treat schema evolution as an *ultimate goal*. It is simply a necessary part of our processes. You can imagine running a MapReduce job over months worth of data where the schema used to define that dataset has changed multiple times during that time period.
 
 Both the conversion and evolution targets use MapReduce (Scalding) jobs to achieve their desired output. These will run locally from the Makefile but can easily be run against a given Hadoop cluster.
 See the `conv.sh` and `evo.sh` scripts for the actual invocation and required arguments. To run against a cluster, replace `java -jar` with `hadoop jar` and modify the arguments accordingly.
+
+For example, to run the Avro to Avro-Parquet conversion job for schema 1, issue:
+```
+HADOOP_CLASSPATH=schema-1-datagen.jar hadoop jar conv.jar com.tapad.AvroParquetConverter --hdfs --input /path/to/hdfs/input.avro --output /path/to/hdfs/output
+```
+
+---
+
+Please note that one of the compatible schema changes (2 to 3) will fail during the Avro-Parquet schema evolution job.
+When running the `evo` target you will encounter an error message similar to the following: Evolution failed - check /tmp/tapad-datagen/log for job output.
+The current version of our Avro-Parquet Scalding sources/taps/pipes do not accept the removal of fields from a record as a valid schema change across Avro-Parquet data files.
+This is largely dependent on the version of the Parquet library we use, but we have not recently checked if it has been fixed in the upstream repository.
 
 Our environment
 ===============
