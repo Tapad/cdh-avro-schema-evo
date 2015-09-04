@@ -1,0 +1,30 @@
+================
+Makefile targets
+================
+
+datagen
+-------
+Generate Avro records for 5 discrete schemas. Each successive schema is compatible with its antecedent.
+
+conv
+----
+Convert the generated Avro records to an Avro-backed Parquet data file. No schema evolution is performed.
+
+evo
+---
+Attempt to migrate/evolve Avro and Avro-backed Parquet data files to new data files with a compatible and updated Avro schema.
+
+clean
+-----
+Remove generated data files.
+
+=====
+Notes
+=====
+
+Schema evolution is currently only performed against two schemas at once. For example, if schema 1 is succeeded by schema 2, our evolution job
+will select the data files created with schema 1 and attempt to evolve them to schema 2.
+
+Theoretically, schema 5 should be backwards compatible with schemas 1 through 4, and a single job should be able to migrate data files generated with schemas 1 through 4 to schema 5.
+
+Our production workflows are not necessarily concerned with updating schemas as an end goal, rather, it is a necessary part of the process of being able to have a single job run against a large, constantly evolving data set described by a single schema. You can imagine running a job over a months' worth of data where the schema used to defined that dataset has changed (in compatible ways) during that month.

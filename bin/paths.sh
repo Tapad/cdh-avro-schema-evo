@@ -1,11 +1,12 @@
 #!/bin/bash
 
-set -o errexit
+set -o nounset
 
 DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 DATA_DIR=/tmp/tapad-datagen
 AVRO_DIR="$DATA_DIR/avro"
 PARQ_DIR="$DATA_DIR/parquet"
+LOG_DIR="$DATA_DIR/log"
 BUILD_DIR=$DIR/../build
 SCHEMA_1_JAR="$BUILD_DIR/schema-1-datagen.jar"
 SCHEMA_2_JAR="$BUILD_DIR/schema-2-datagen.jar"

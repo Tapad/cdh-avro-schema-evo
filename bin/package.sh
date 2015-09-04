@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -o errexit
+set -o nounset
 
 DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
@@ -24,10 +25,17 @@ cp $SCHEMA_4_JAR build
 cp $SCHEMA_5_JAR build
 cp $CONV_JAR build
 
+cp bin/README build
 cp bin/Makefile build
 cp bin/paths.sh build
 cp bin/datagen.sh build
 cp bin/conv.sh build
 cp bin/evo.sh build
+cp bin/clean.sh build
+
+ln -s build tapad-datagen
+COPYFILE_DISABLE=1 tar -chzf tapad-datagen.tar.gz tapad-datagen
+mv tapad-datagen.tar.gz build
+rm -r tapad-datagen
 
 popd
