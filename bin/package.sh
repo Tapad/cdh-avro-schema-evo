@@ -37,5 +37,6 @@ ln -s build tapad-datagen
 COPYFILE_DISABLE=1 tar -chzf tapad-datagen.tar.gz tapad-datagen
 mv tapad-datagen.tar.gz build
 rm -r tapad-datagen
+find build -not -name 'tapad-datagen.tar.gz' -delete
 
 popd

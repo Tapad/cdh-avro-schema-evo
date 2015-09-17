@@ -11,20 +11,26 @@ object ProjectBuild extends Build {
 
   val ScalaVersion = "2.10.5"
 
+  val CdhVersion = "cdh5.4.2"
+
+  val HadoopVersion = s"2.6.0-mr1-$CdhVersion"
+
+  val HadoopCommonVersion = s"2.6.0-$CdhVersion"
+
+  val ScaldingVersion = "0.13.1"
+
+  val CascadingVersion = "2.6.1"
+
   val AvroVersion = "1.7.6"
 
   val ParquetVersion = "1.6.0"
-
-  val CommonScaldingVersion = "1.0.10-1"
 
   val commonSettings = Seq(
     organization := "com.tapad",
     scalaVersion := ScalaVersion,
     scalacOptions := Seq("-deprecation", "-language:_"),
-    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
     resolvers ++= Seq(
       "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
-      "Tapad Nexus Aggregate" at "http://nexus.tapad.com:8080/nexus/content/groups/aggregate/",
       "Concurrent Maven Repository" at "http://conjars.org/repo",
       "Maven Central Repository" at "http://repo1.maven.org/maven2",
       "Local Maven Repository" at "file://" + Path.userHome.absolutePath + "/.m2/repository"
@@ -61,11 +67,16 @@ object ProjectBuild extends Build {
     file("conv"),
     settings = assemblySettings ++ jarjarSettings ++ Seq(
       libraryDependencies ++= Seq(
-        "com.tapad.scalding" %% "scalding-common"  % CommonScaldingVersion,
-        "com.twitter"         % "parquet-hadoop"   % ParquetVersion,
-        "com.twitter"         % "parquet-avro"     % ParquetVersion,
-        "com.twitter"        %% "parquet-scala"    % ParquetVersion,
-        "org.apache.avro"     % "avro-mapred"      % AvroVersion
+        "org.apache.hadoop"   % "hadoop-core"     % HadoopVersion,
+        "org.apache.hadoop"   % "hadoop-common"   % HadoopCommonVersion,
+        "com.twitter"        %% "scalding-core"   % ScaldingVersion,
+        "com.twitter"        %% "scalding-avro"   % ScaldingVersion,
+        "cascading"           % "cascading-core"  % CascadingVersion,
+        "com.twitter"         % "parquet-hadoop"  % ParquetVersion,
+        "com.twitter"         % "parquet-avro"    % ParquetVersion,
+        "com.twitter"        %% "parquet-scala"   % ParquetVersion,
+        "org.apache.avro"     % "avro-mapred"     % AvroVersion,
+        "org.xerial.snappy"   % "snappy-java"     % "1.0.5"
       ),
       excludedJars in assembly <<= (fullClasspath in assembly) map { cp =>
         val blacklist = Set(
